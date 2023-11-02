@@ -13,7 +13,7 @@
                         <el-input type="password" :prefix-icon="Lock" v-model="loginForm.password" show-password></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button class="login_btn" type="primary" size="default">
+                        <el-button class="login_btn" type="primary" size="default" @click="login">
                             登录
                         </el-button>
                     </el-form-item>
@@ -29,6 +29,13 @@ import { User, Lock } from '@element-plus/icons-vue'
 import { reactive } from 'vue'
 //收集账号与密码的数据
 let loginForm = reactive({ username: 'admin', password: '111111', })
+//登录按钮回调
+const login = () => {
+    //点击登录按钮后干什么？
+    //通知仓库发登录请求
+    //请求成功->首页展示数据的地方
+    //请求失败->弹出登陆失败信息
+}
 </script>
 
 <style scoped lang="scss">
