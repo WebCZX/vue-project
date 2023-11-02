@@ -20,3 +20,5 @@ app.use(router);
 app.use(pinia);
 
 app.mount('#app');
+
+//旧电脑git上传测试
