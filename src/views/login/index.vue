@@ -83,9 +83,9 @@ const valifatorUserName = (_rule: any, value: any, callback: any) => {
     //value：表单元素文本内容
     //函数：如果符合条件callback放行通过即为
     //如果不符合条件callback方法，注入错误提示信息
-    if (value.length <= 5) {
+    if (value.length < 5) {
         callback(new Error('账号长度至少5位'));
-    } else if (value.length >= 10) {
+    } else if (value.length > 10) {
         callback(new Error('账号长度最多10位'));
     } else {
         callback();
@@ -96,9 +96,9 @@ const valifatorPassword = (_rule: any, value: any, callback: any) => {
     //value：表单元素文本内容
     //函数：如果符合条件callback放行通过即为
     //如果不符合条件callback方法，注入错误提示信息
-    if (value.length <= 6) {
+    if (value.length < 6) {
         callback(new Error('密码长度至少6位'));
-    } else if (value.length >= 10) {
+    } else if (value.length > 10) {
         callback(new Error('密码长度最多10位'));
     } else {
         callback();
