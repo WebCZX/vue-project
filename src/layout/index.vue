@@ -8,7 +8,7 @@
         <div class="layout_tabbar">顶部导航</div>
         <!-- 内容展示区域 -->
         <div class="layout_main">
-            <p style="height: 1000px;" >我是段落</p>
+            <p style="height: 1000px;background-color: yellow;">我是段落</p>
             内容展示区域
         </div>
     </div>
