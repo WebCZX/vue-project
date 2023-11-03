@@ -30,6 +30,8 @@ import { reactive, ref } from 'vue'
 import useUserStore from '@/store/modules/user';//引入用户相关的小仓库
 import { useRouter } from 'vue-router';
 import { ElNotification } from 'element-plus';
+//引入获取当前时间的函数
+import { getTime } from '@/utils/time';
 //获取路由器
 let $router = useRouter();
 //定义变量控制按钮加载效果
@@ -53,7 +55,8 @@ const login = async () => {
         //登陆成功提示信息
         ElNotification({
             type: 'success',
-            message: '登录成功'
+            message: '欢迎回来',
+            title: `Hi,${getTime()}好`
         });
         //登陆成功加载效果也消失
         loading.value = false;
