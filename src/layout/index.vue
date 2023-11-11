@@ -18,8 +18,7 @@
         <div class="layout_tabbar">顶部导航</div>
         <!-- 内容展示区域 -->
         <div class="layout_main">
-            <p style="height: 1000px;background-color: yellow;">我是段落</p>
-            内容展示区域
+            <Main></Main>
         </div>
 
     </div>
@@ -30,6 +29,8 @@
 import Logo from './logo/index.vue'
 //引入菜单组件
 import Menu from './menu/index.vue'
+//右侧内容展示区域
+import Main from './main/index.vue';
 //获取用户相关的小仓库
 import useUserStore from '@/store/modules/user';
 let userStore = useUserStore();
@@ -63,6 +64,7 @@ let userStore = useUserStore();
         background-color: blue;
         top: 0;
         left: $base-menu-width;
+        color: white;
     }
 
     .layout_main {
@@ -74,6 +76,7 @@ let userStore = useUserStore();
         top: $base-table-height;
         padding: 20px;
         overflow: auto;
+        color: white;
     }
 
 }
