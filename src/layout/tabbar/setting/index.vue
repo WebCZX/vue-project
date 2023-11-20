@@ -25,7 +25,7 @@ import { useRouter, useRoute } from "vue-router";
 import useUserStore from "@/store/modules/user"
 //获取骨架的小仓库
 import useLayOutSettingStore from '@/store/modules/setting';
-import { $ } from "vue/macros";
+
 
 let layoutSettingStore = useLayOutSettingStore();
 let userStore = useUserStore();

@@ -21,4 +21,5 @@ app.use(pinia);
 
 app.mount('#app');
 
-app.use(pinia);
+//引入路由鉴权文件
+import './permisstion';
