@@ -13,20 +13,26 @@
         </span>
         <template #dropdown>
             <el-dropdowm-menu>
-                <el-dropdown-item>退出登录</el-dropdown-item>
+                <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
             </el-dropdowm-menu>
         </template>
     </el-dropdown>
 </template>
 
 <script setup lang="ts">
+import { useRouter, useRoute } from "vue-router";
 //获取用户相关小仓库
 import useUserStore from "@/store/modules/user"
 //获取骨架的小仓库
 import useLayOutSettingStore from '@/store/modules/setting';
+import { $ } from "vue/macros";
+
 let layoutSettingStore = useLayOutSettingStore();
 let userStore = useUserStore();
-
+//获取路由器对象
+let $router = useRouter();
+//获取路由对象
+let $route = useRoute();
 
 //刷新按钮点击图标
 const updateRefsh = () => {
@@ -46,6 +52,17 @@ const fullScreen = () => {
         document.exitFullscreen();
 
     }
+}
+
+//退出登录点击回调
+const logout = () => {
+    //1.向服务器发请求[退出登录接口]
+    //2.仓库中关于用户相关数据清空[token|username|avatar]
+    //3.跳转到登录页面
+    userStore.userLogout();
+    //跳转到登录页面
+    $router.push({ path: '/login', query: { redirect: $route.path } });
+
 }
 </script>
 
