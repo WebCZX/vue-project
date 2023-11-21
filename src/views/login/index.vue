@@ -43,7 +43,7 @@ let useStore = useUserStore();
 //获取el-form组件
 let loginForms = ref();
 //收集账号与密码的数据
-let loginForm = reactive({ username: 'admin', password: '111111', })
+let loginForm = reactive({ username: 'admin', password: 'atguigu123', })
 //登录按钮回调
 const login = async () => {
     //保证全部表单相校验通过再发请求
