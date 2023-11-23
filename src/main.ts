@@ -24,4 +24,3 @@ app.mount("#app");
 //引入路由鉴权文件
 import "./permisstion";
 
-//http://wed.xjx100.cn/news/224609.html?action=onClick
