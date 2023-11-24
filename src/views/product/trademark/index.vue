@@ -37,7 +37,7 @@
                 v-model:page-size:设置每一个展示数据条数
                 page-sizes:用于设置下拉菜单数据
                 background:设置分页器按钮背景颜色
-                laout:设置分页器6个子组件布局调整
+                laout:设置分页器六个子组件布局调整
         -->
         <el-pagination v-model:current-page="pageNo" v-model="limit" :page-sizes="[3, 5, 7, 9]" :background="true"
             layout="prev,pager,next,jumper,->,sizes,total" :total="400" />
