@@ -75,7 +75,7 @@
 import { ElMessage, type UploadProps } from 'element-plus'
 //引入组合式API函数ref
 import { ref, onMounted, reactive } from 'vue';
-import { reqHasTrademark } from '@/api/product/trademark'
+import { reqHasTrademark, reqAddOrUpdateTrademark } from '@/api/product/trademark'
 import type { Records, TradeMarkResponseData, TradeMark } from '@/api/product/trademark/type';
 //当前页码
 let pageNo = ref<number>(1);
@@ -121,6 +121,9 @@ const sizeChange = () => {
 const addTrademark = () => {
     //对话框显示
     dialogFormVisible.value = true;
+    //清空收集数据
+    trademarkParams.tmName = '';
+    trademarkParams.logoURL = '';
 }
 //修改已有品牌的按钮回调
 const updateTrademark = () => {
@@ -133,8 +136,29 @@ const cancel = () => {
     dialogFormVisible.value = false;
 }
 
-const confirm = () => {
-    dialogFormVisible.value = false;
+const confirm = async () => {
+    let result = await reqAddOrUpdateTrademark(trademarkParams)
+    if (result.code == 200) {
+        //关闭对话框
+        dialogFormVisible.value = false;
+        //弹出提示信息
+        ElMessage({
+            type: 'success',
+            message: '添加品牌成功',
+        });
+        //再次发请求获取已有全部品牌数据
+        getHasTrademark();
+    } else {
+        //添加品牌失败
+        ElMessage({
+            type: 'error',
+            message: '添加品牌失败',
+        });
+
+    }
+
+
+
 }
 
 //上传图片组件:上传图片之前触发的钩子函数
