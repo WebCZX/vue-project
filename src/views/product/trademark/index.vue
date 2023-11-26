@@ -27,7 +27,8 @@
                 </el-table-column>
                 <el-table-column label="品牌操作">
                     <template #="{ row, $index }">
-                        <el-button type="success" size="small" icon="Edit" @click="updateTrademark"></el-button>
+                        <el-button type="success" size="small" icon="Edit"
+                            @click="$event => updateTrademark(row)"></el-button>
                         <el-button type="danger" size="small" icon="Delete" @click=""></el-button>
                     </template>
                 </el-table-column>
@@ -46,7 +47,7 @@
         </el-card>
         <!-- 对话框组件：在添加品牌与修改已有品牌的业务时候使用结构 -->
         <!-- v-model:控制对话框显示与隐藏：true显示，false隐藏 -->
-        <el-dialog v-model="dialogFormVisible" title="添加品牌">
+        <el-dialog v-model="dialogFormVisible" :title="trademarkParams.id ? '修改品牌' : '添加品牌'">
             <el-form style="width: 80%;" label-width="80px">
                 <el-form-item label="品牌名称">
                     <el-input placeholder="请输入品牌名称" v-model="trademarkParams.tmName"></el-input>
@@ -122,37 +123,44 @@ const addTrademark = () => {
     //对话框显示
     dialogFormVisible.value = true;
     //清空收集数据
+    trademarkParams.id = 0;
     trademarkParams.tmName = '';
     trademarkParams.logoURL = '';
 }
 //修改已有品牌的按钮回调
-const updateTrademark = () => {
+//row:当前已有的品牌
+const updateTrademark = (row: TradeMark) => {
     //对话框显示
     dialogFormVisible.value = true;
+    // ES6语法合并对象
+    Object.assign(trademarkParams, row);
 }
 //对话框底部取消按钮
 const cancel = () => {
     //对话框隐藏
     dialogFormVisible.value = false;
+    trademarkParams.tmName = '';
+    trademarkParams.logoURL = '';
 }
 
 const confirm = async () => {
     let result = await reqAddOrUpdateTrademark(trademarkParams)
+    //添加|修改已有品牌
     if (result.code == 200) {
         //关闭对话框
         dialogFormVisible.value = false;
         //弹出提示信息
         ElMessage({
             type: 'success',
-            message: '添加品牌成功',
+            message: trademarkParams.id ? '修改品牌成功' : '添加品牌成功'
         });
         //再次发请求获取已有全部品牌数据
-        getHasTrademark();
+        getHasTrademark(trademarkParams.id ? pageNo.value : 1);
     } else {
         //添加品牌失败
         ElMessage({
             type: 'error',
-            message: '添加品牌失败',
+            message: trademarkParams.id ? '修改品牌失败' : '添加品牌失败',
         });
 
     }
