@@ -29,7 +29,12 @@
                     <template #="{ row, $index }">
                         <el-button type="success" size="small" icon="Edit"
                             @click="$event => updateTrademark(row)"></el-button>
-                        <el-button type="danger" size="small" icon="Delete" @click=""></el-button>
+                        <el-popconfirm :title="`是否确认删除${row.tmName}？`" width="250px" icon="Delete"
+                            @confirm='removeTradeMark(row.id)'>
+                            <template #reference>
+                                <el-button type="danger" size="small" icon="Delete" @click=""></el-button>
+                            </template>
+                        </el-popconfirm>
                     </template>
                 </el-table-column>
             </el-table>
@@ -76,7 +81,7 @@
 import { ElMessage, type UploadProps } from 'element-plus'
 //引入组合式API函数ref
 import { ref, onMounted, reactive, nextTick } from 'vue';
-import { reqHasTrademark, reqAddOrUpdateTrademark } from '@/api/product/trademark'
+import { reqHasTrademark, reqAddOrUpdateTrademark, reqDeleteTrademark } from '@/api/product/trademark'
 import type { Records, TradeMarkResponseData, TradeMark } from '@/api/product/trademark/type';
 //当前页码
 let pageNo = ref<number>(1);
@@ -249,6 +254,27 @@ const rules = {
         { required: true, validator: validatorLogoUrl }
     ]
 }
+
+//气泡确认框确定按钮的回调
+const removeTradeMark = async (id: number) => {
+    //点击确定按钮删除已有品牌请求
+    let result = await reqDeleteTrademark(id);
+    if (result.code == 200) {
+        ElMessage({
+            type: 'success',
+            message: '删除品牌成功'
+            //再次获取已有的品牌数据
+
+        });
+        getHasTrademark(trademarkArr.value.length > 1 ? pageNo.value : pageNo.value - 1);
+    } else {
+        ElMessage({
+            type: 'error',
+            message: '删除品牌失败'
+        })
+    }
+}
+
 </script>
 
 
